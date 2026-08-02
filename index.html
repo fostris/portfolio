@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070912" />
+  <meta
+    name="description"
+    content="Интерактивная витрина проектов: дизайн, разработка и эксперименты."
+  />
+  <title>NOVA — Project Showcase</title>
+
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=k03-TIB2WjkIoIdQhU9UCUIh3rTradMmYWeG-RWrV1HsEFeCXKTyatj8S9MyPvAuPvye7mjmr2Fw8O0d-Kc3kz6ZrXQW6D4qlhtKjO2VbM8e8HbqndS4S36_7UgHJZ1xaSBf_GFpoRLFsPbLoX5fryTO-OtXqawAVFGxBaPpsmwbgfEWQvoviDMkNslyvFWGxdwvIK7YGRKtp9NKJJpKhmXCaDGqW0v3a43nxI_jALwSWRlvwG4MdYZZZzIl7GFWvOzybG-v0AMJFqflvSOJHhz-K_-ytSlY8XC8jKhQFfJSSv-pXc6XNstIo-7qI5bd" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ_aWQ9ZmlsZV8wMDAwMDAwMGJkNDg4MWY0YjRkMmU4MWI5MjIzM2YwMCZmbj1pbmRleC5odG1sJmNkPWF0dGFjaG1lbnQmdHM9NDk2MDI2JnA9ZnMmY2lkPTEmc2lnPWY3ZmQ3NGM2ZTM0ZDY1NTQ2ZDA0OTliNjg1YWRkMTdiOGMwYzgwZmIyM2M5OGVmMTQxZGRhN2IxYTJhZWVmMWEmdj0w"/><style>
+    :root {
+      --bg: #070912;
+      --panel: rgba(17, 20, 37, 0.72);
+      --panel-solid: #111425;
+      --text: #f7f8ff;
+      --muted: #a5abc7;
+      --line: rgba(255, 255, 255, 0.1);
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --accent-3: #f472b6;
+      --success: #34d399;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 28px;
+      --mouse-x: 50%;
+      --mouse-y: 50%;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(139, 92, 246, 0.22), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.16), transparent 30%),
+        radial-gradient(circle at 50% 85%, rgba(244, 114, 182, 0.12), transparent 30%),
+        var(--bg);
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      left: calc(var(--mouse-x) - 260px);
+      top: calc(var(--mouse-y) - 260px);
+      pointer-events: none;
+      z-index: -2;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.14), transparent 62%);
+      transition: left .08s linear, top .08s linear;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 50;
+      width: min(1080px, calc(100% - 28px));
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(7, 9, 18, 0.58);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.24);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 30px rgba(139, 92, 246, .35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, .05);
+      padding: 10px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.09);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 130px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      color: #d7daf0;
+      font-size: 13px;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, .6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 10px rgba(52,211,153,0); }
+      100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: .93;
+      letter-spacing: -.065em;
+    }
+
+    .gradient-text {
+      display: block;
+      background: linear-gradient(100deg, #ffffff 5%, #b9a7ff 42%, #65e6ff 78%, #ff9ed2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: #070912;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #c7f7ff);
+      box-shadow: 0 12px 45px rgba(104, 221, 255, .18);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+      border-color: var(--line);
+    }
+
+    .hero-orbit {
+      position: relative;
+      min-height: 500px;
+      display: grid;
+      place-items: center;
+      perspective: 1200px;
+    }
+
+    .orb {
+      position: relative;
+      width: min(390px, 80vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.72), transparent 4%),
+        radial-gradient(circle at 40% 35%, #6ee7ff, transparent 22%),
+        radial-gradient(circle at 58% 60%, #7c3aed, transparent 35%),
+        radial-gradient(circle at 52% 48%, #13162a 15%, #090b17 70%);
+      box-shadow:
+        inset -40px -40px 80px rgba(0,0,0,.45),
+        inset 20px 20px 60px rgba(255,255,255,.05),
+        0 0 110px rgba(124,58,237,.25),
+        0 0 170px rgba(34,211,238,.11);
+      animation: float 6s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    .orb::before,
+    .orb::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateX(65deg);
+    }
+
+    .orb::before {
+      width: 138%;
+      height: 46%;
+      animation: spin 12s linear infinite;
+    }
+
+    .orb::after {
+      width: 112%;
+      height: 32%;
+      border-color: rgba(101,230,255,.35);
+      animation: spinReverse 9s linear infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-18px) rotate(2deg); }
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotateX(65deg) rotateZ(360deg); }
+    }
+
+    @keyframes spinReverse {
+      to { transform: translate(-50%, -50%) rotateX(65deg) rotateZ(-360deg); }
+    }
+
+    .floating-chip {
+      position: absolute;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(15, 18, 34, .76);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      color: #dfe3ff;
+      font-size: 13px;
+      animation: chipFloat 5s ease-in-out infinite;
+    }
+
+    .chip-1 { top: 13%; left: 0; }
+    .chip-2 { right: -4%; top: 30%; animation-delay: -1.6s; }
+    .chip-3 { left: 8%; bottom: 13%; animation-delay: -3.2s; }
+
+    @keyframes chipFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      color: #8eefff;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .section-note {
+      max-width: 430px;
+      color: var(--muted);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .filter:hover,
+    .filter.active {
+      color: var(--text);
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .project {
+      position: relative;
+      min-height: 390px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      isolation: isolate;
+      transition: transform .35s ease, border-color .35s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,.24);
+    }
+
+    .project:nth-child(1),
+    .project:nth-child(4) {
+      grid-column: span 7;
+    }
+
+    .project:nth-child(2),
+    .project:nth-child(3) {
+      grid-column: span 5;
+    }
+
+    .project-visual {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .95;
+      transition: transform .5s ease;
+    }
+
+    .project:hover .project-visual {
+      transform: scale(1.04);
+    }
+
+    .visual-ai {
+      background:
+        radial-gradient(circle at 75% 25%, rgba(34,211,238,.85), transparent 11%),
+        radial-gradient(circle at 65% 45%, rgba(139,92,246,.85), transparent 27%),
+        linear-gradient(135deg, #12172f, #080a14 65%);
+    }
+
+    .visual-data {
+      background:
+        linear-gradient(120deg, rgba(16,185,129,.24), transparent 42%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 44px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.045) 0 1px, transparent 1px 44px),
+        #0a1320;
+    }
+
+    .visual-mobile {
+      background:
+        radial-gradient(circle at 70% 35%, rgba(244,114,182,.72), transparent 26%),
+        radial-gradient(circle at 35% 65%, rgba(139,92,246,.78), transparent 28%),
+        #120b1e;
+    }
+
+    .visual-lab {
+      background:
+        conic-gradient(from 210deg at 70% 35%, #0b1020, #155e75, #7c3aed, #0b1020);
+      filter: saturate(.85);
+    }
+
+    .project-content {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 26px;
+      background: linear-gradient(to top, rgba(5,7,15,.96), rgba(5,7,15,.78) 50%, transparent);
+    }
+
+    .project-index {
+      position: absolute;
+      top: 22px;
+      left: 24px;
+      color: rgba(255,255,255,.48);
+      font-size: 13px;
+      letter-spacing: .16em;
+    }
+
+    .project-status {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(7,9,18,.55);
+      border: 1px solid var(--line);
+      font-size: 12px;
+      backdrop-filter: blur(12px);
+    }
+
+    .project h3 {
+      font-size: clamp(26px, 3vw, 40px);
+      letter-spacing: -.035em;
+    }
+
+    .project p {
+      max-width: 560px;
+      margin-top: 10px;
+      color: #b7bdd6;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      color: #d9ddf3;
+      background: rgba(255,255,255,.055);
+      font-size: 12px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .marquee {
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee-item {
+      padding: 22px 32px;
+      color: #c6cbe2;
+      white-space: nowrap;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .glass {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .about-card {
+      padding: 34px;
+    }
+
+    .about-card p {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .stat {
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .stat strong {
+      font-size: 42px;
+      letter-spacing: -.05em;
+    }
+
+    .stat span {
+      color: var(--muted);
+    }
+
+    .cta {
+      margin: 80px 0 30px;
+      padding: 54px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139,92,246,.24), transparent 42%),
+        rgba(255,255,255,.035);
+      box-shadow: var(--shadow);
+    }
+
+    .cta p {
+      max-width: 620px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .cta .hero-actions {
+      justify-content: center;
+    }
+
+    footer {
+      padding: 38px 0 46px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(2, 4, 10, .78);
+      backdrop-filter: blur(14px);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-card {
+      width: min(760px, 100%);
+      max-height: 88vh;
+      overflow: auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: #0e1222;
+      box-shadow: 0 40px 140px rgba(0,0,0,.6);
+      animation: modalIn .25s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(18px) scale(.98); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .modal-close {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+      cursor: pointer;
+    }
+
+    .modal-body {
+      margin-top: 24px;
+      color: var(--muted);
+    }
+
+    .demo-panel {
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #090c17;
+    }
+
+    .terminal-line {
+      display: flex;
+      gap: 10px;
+      color: #a7f3d0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    .secret-toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 200;
+      max-width: 340px;
+      display: none;
+      padding: 16px 18px;
+      border: 1px solid rgba(139,92,246,.45);
+      border-radius: 18px;
+      color: #f6f2ff;
+      background: rgba(20,15,40,.92);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .secret-toast.show {
+      display: block;
+      animation: modalIn .25s ease;
+    }
+
+    .presentation-mode .nav,
+    .presentation-mode .filters,
+    .presentation-mode footer {
+      opacity: .2;
+    }
+
+    .presentation-mode .project {
+      box-shadow: 0 0 0 1px rgba(139,92,246,.25), 0 30px 120px rgba(139,92,246,.12);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-orbit {
+        min-height: 420px;
+      }
+
+      .project,
+      .project:nth-child(n) {
+        grid-column: 1 / -1;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 24px, 1160px);
+      }
+
+      .nav {
+        top: 10px;
+      }
+
+      h1 {
+        font-size: clamp(48px, 16vw, 72px);
+      }
+
+      .hero {
+        padding-top: 110px;
+      }
+
+      .orb {
+        width: 280px;
+      }
+
+      .hero-orbit {
+        min-height: 350px;
+      }
+
+      .floating-chip {
+        font-size: 11px;
+        padding: 9px 11px;
+      }
+
+      .chip-2 { right: 0; }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        padding: 34px 20px;
+      }
+
+      .footer-row {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <a class="brand" href="#top" aria-label="На главную">
+      <span class="brand-mark">N</span>
+      <span>NOVA</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#projects">Проекты</a>
+      <a href="#about">Подход</a>
+      <a href="#contact">Контакты</a>
+    </div>
+
+    <button class="nav-cta" id="presentationButton">Режим презентации</button>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="pulse"></span>
+            Доступен для новых идей
+          </div>
+
+          <h1>
+            Я создаю
+            <span class="gradient-text">цифровые миры.</span>
+          </h1>
+
+          <p class="hero-copy">
+            Это не просто список репозиториев. Это интерактивная витрина проектов,
+            экспериментов и решений — без раскрытия приватного кода.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">
+              Смотреть проекты
+              <span>↘</span>
+            </a>
+            <button class="btn btn-secondary" id="randomProjectButton">
+              Удивить меня
+              <span>✦</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-orbit" aria-hidden="true">
+          <div class="orb"></div>
+          <div class="floating-chip chip-1">⚡ Fast prototype</div>
+          <div class="floating-chip chip-2">◉ Interactive demo</div>
+          <div class="floating-chip chip-3">⌘ Private core</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item">DESIGN SYSTEMS ✦</div>
+        <div class="marquee-item">AI PRODUCTS ✦</div>
+        <div class="marquee-item">WEB EXPERIENCES ✦</div>
+        <div class="marquee-item">DATA VISUALIZATION ✦</div>
+        <div class="marquee-item">RAPID PROTOTYPING ✦</div>
+
+        <div class="marquee-item">DESIGN SYSTEMS ✦</div>
+        <div class="marquee-item">AI PRODUCTS ✦</div>
+        <div class="marquee-item">WEB EXPERIENCES ✦</div>
+        <div class="marquee-item">DATA VISUALIZATION ✦</div>
+        <div class="marquee-item">RAPID PROTOTYPING ✦</div>
+      </div>
+    </div>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Selected work</div>
+            <h2>Проекты, которыми<br />хочется делиться.</h2>
+          </div>
+
+          <p class="section-note">
+            Карточки открывают демонстрационный сценарий. Реальная бизнес-логика
+            и production-код могут оставаться в приватном репозитории.
+          </p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Фильтр проектов">
+          <button class="filter active" data-filter="all">Все</button>
+          <button class="filter" data-filter="ai">AI</button>
+          <button class="filter" data-filter="web">Web</button>
+          <button class="filter" data-filter="data">Data</button>
+          <button class="filter" data-filter="lab">Эксперименты</button>
+        </div>
+
+        <div class="projects">
+          <article
+            class="project"
+            tabindex="0"
+            data-category="ai web"
+            data-title="Atlas AI"
+            data-description="Интеллектуальный рабочий ассистент с поиском по базе знаний, автоматизацией рутинных задач и аккуратным human-in-the-loop сценарием."
+            data-stack="Python · FastAPI · LLM · Vector DB"
+          >
+            <div class="project-visual visual-ai"></div>
+            <span class="project-index">01 / AI PRODUCT</span>
+            <span class="project-status">Live concept</span>
+            <div class="project-content">
+              <h3>Atlas AI</h3>
+              <p>Ассистент, который превращает сложные процессы в понятный диалог.</p>
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">LLM</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project"
+            tabindex="0"
+            data-category="data web"
+            data-title="Pulse Analytics"
+            data-description="Интерактивная аналитическая панель с фокусом на ясность данных, быстрые инсайты и удобную демонстрацию ключевых метрик."
+            data-stack="TypeScript · Charts · REST API"
+          >
+            <div class="project-visual visual-data"></div>
+            <span class="project-index">02 / DATA</span>
+            <span class="project-status">Prototype</span>
+            <div class="project-content">
+              <h3>Pulse Analytics</h3>
+              <p>Данные, которые не нужно расшифровывать.</p>
+              <div class="tags">
+                <span class="tag">TypeScript</span>
+                <span class="tag">Charts</span>
+                <span class="tag">API</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project"
+            tabindex="0"
+            data-category="web"
+            data-title="Orbit Mobile"
+            data-description="Концепт мобильного сервиса с быстрым onboarding, персональными сценариями и выразительной визуальной системой."
+            data-stack="UI/UX · Mobile · Design System"
+          >
+            <div class="project-visual visual-mobile"></div>
+            <span class="project-index">03 / MOBILE</span>
+            <span class="project-status">Case study</span>
+            <div class="project-content">
+              <h3>Orbit Mobile</h3>
+              <p>Мобильный интерфейс, который ощущается живым.</p>
+              <div class="tags">
+                <span class="tag">UX</span>
+                <span class="tag">Mobile</span>
+                <span class="tag">Prototype</span>
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="project"
+            tabindex="0"
+            data-category="lab ai"
+            data-title="Synthetic Lab"
+            data-description="Лаборатория интерактивных экспериментов: генеративные интерфейсы, необычные визуализации и идеи на стыке дизайна и инженерии."
+            data-stack="Creative Coding · AI · WebGL"
+          >
+            <div class="project-visual visual-lab"></div>
+            <span class="project-index">04 / LAB</span>
+            <span class="project-status">Ongoing</span>
+            <div class="project-content">
+              <h3>Synthetic Lab</h3>
+              <p>Место, где странные идеи превращаются в рабочие прототипы.</p>
+              <div class="tags">
+                <span class="tag">Creative coding</span>
+                <span class="tag">WebGL</span>
+                <span class="tag">AI</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="glass about-card">
+          <div class="kicker">How I work</div>
+          <h2>Сначала смысл.<br />Потом эффект.</h2>
+          <p>
+            Я собираю демоверсии так, чтобы человек понял ценность проекта
+            за несколько секунд: один сильный сценарий, выразительный интерфейс
+            и минимум отвлекающих деталей.
+          </p>
+        </div>
+
+        <div class="glass stats">
+          <div class="stat">
+            <strong>01</strong>
+            <span>Фокус на главном пользовательском сценарии</span>
+          </div>
+          <div class="stat">
+            <strong>∞</strong>
+            <span>Пространство для экспериментов и улучшений</span>
+          </div>
+          <div class="stat">
+            <strong>0</strong>
+            <span>Секретов, API-ключей и приватного кода в публичном репозитории</span>
+          </div>
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Готово для GitHub Pages</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="contact">
+      <div class="cta">
+        <div class="kicker">Let’s build something</div>
+        <h2>Есть идея?<br />Покажем её красиво.</h2>
+        <p>
+          Замени тексты, ссылки и названия проектов — и эта страница станет
+          полноценной витриной твоего портфолио.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:your@email.com">Написать мне</a>
+          <a class="btn btn-secondary" href="https://github.com/" target="_blank" rel="noreferrer">
+            GitHub ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© 2026 NOVA Showcase</span>
+      <span>Сделано с любопытством, кофе и небольшим количеством магии.</span>
+    </div>
+  </footer>
+
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-top">
+        <div>
+          <div class="kicker">Interactive preview</div>
+          <h2 id="modalTitle">Project</h2>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="modalDescription"></p>
+
+        <div class="tags" id="modalTags"></div>
+
+        <div class="demo-panel">
+          <div class="terminal-line"><span>›</span><span>demo.start()</span></div>
+          <div class="terminal-line"><span>✓</span><span>Интерфейс загружен</span></div>
+          <div class="terminal-line"><span>✓</span><span>Тестовые данные подключены</span></div>
+          <div class="terminal-line"><span>✓</span><span>Приватная логика скрыта</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secret-toast" id="secretToast">
+    <strong>Секретный режим активирован ✦</strong>
+    <div style="margin-top:6px;color:#c9c2e8">
+      Ты нашёл пасхалку. Попробуй нажать клавишу <b>P</b>.
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const projects = [...document.querySelectorAll(".project")];
+    const filters = [...document.querySelectorAll(".filter")];
+    const modal = document.getElementById("projectModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalTags = document.getElementById("modalTags");
+    const modalClose = document.getElementById("modalClose");
+    const randomProjectButton = document.getElementById("randomProjectButton");
+    const presentationButton = document.getElementById("presentationButton");
+    const secretToast = document.getElementById("secretToast");
+
+    document.addEventListener("pointermove", (event) => {
+      root.style.setProperty("--mouse-x", event.clientX + "px");
+      root.style.setProperty("--mouse-y", event.clientY + "px");
+    });
+
+    function openProject(project) {
+      modalTitle.textContent = project.dataset.title;
+      modalDescription.textContent = project.dataset.description;
+      modalTags.innerHTML = "";
+
+      project.dataset.stack.split(" · ").forEach((item) => {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = item;
+        modalTags.appendChild(tag);
+      });
+
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeProject() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    projects.forEach((project) => {
+      project.addEventListener("click", () => openProject(project));
+      project.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openProject(project);
+        }
+      });
+    });
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        filters.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        const value = button.dataset.filter;
+
+        projects.forEach((project) => {
+          const categories = project.dataset.category.split(" ");
+          project.classList.toggle(
+            "hidden",
+            value !== "all" && !categories.includes(value)
+          );
+        });
+      });
+    });
+
+    randomProjectButton.addEventListener("click", () => {
+      const visibleProjects = projects.filter(
+        (project) => !project.classList.contains("hidden")
+      );
+      const random = visibleProjects[
+        Math.floor(Math.random() * visibleProjects.length)
+      ];
+
+      random.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => openProject(random), 550);
+    });
+
+    modalClose.addEventListener("click", closeProject);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeProject();
+    });
+
+    presentationButton.addEventListener("click", () => {
+      document.body.classList.toggle("presentation-mode");
+      presentationButton.textContent = document.body.classList.contains("presentation-mode")
+        ? "Обычный режим"
+        : "Режим презентации";
+    });
+
+    let secretCode = "";
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeProject();
+
+      if (event.key.toLowerCase() === "p") {
+        document.body.classList.toggle("presentation-mode");
+      }
+
+      secretCode = (secretCode + event.key.toLowerCase()).slice(-4);
+
+      if (secretCode === "nova") {
+        secretToast.classList.add("show");
+        setTimeout(() => secretToast.classList.remove("show"), 4500);
+      }
+    });
+  </script>
+</body>
+</html>
